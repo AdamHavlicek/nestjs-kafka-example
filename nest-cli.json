@@ -1,0 +1,30 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/hero/src",
+  "monorepo": true,
+  "root": "apps/hero",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/hero/tsconfig.app.json"
+  },
+  "projects": {
+    "nestjs-kafka": {
+      "type": "application",
+      "root": "apps/hero",
+      "entryFile": "main",
+      "sourceRoot": "apps/hero/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/hero/tsconfig.app.json"
+      }
+    },
+    "king": {
+      "type": "application",
+      "root": "apps/king",
+      "entryFile": "main",
+      "sourceRoot": "apps/king/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/king/tsconfig.app.json"
+      }
+    }
+  }
+}

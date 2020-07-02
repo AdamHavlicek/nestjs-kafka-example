@@ -1,0 +1,56 @@
+version: '3.7'
+# services:
+#   zookeeper:
+#     image: zookeeper:3.4.14
+#     hostname: zookeeper
+#     ports:
+#       - "8080:8081"
+#       - "2181:2181"
+#     environment:
+#       ZOO_MY_ID: 1
+#       ZOO_PORT: 2181
+#       ZOO_SERVERS: server.1=zookeeper:2888:3888
+#     # volumes:
+#     #   - ./_data/zookeeper/data:/data
+#     #   - ./_data/zookeeper/datalog:/datalog
+#   kafka:
+#     image: confluentinc/cp-kafka:5.5.1
+#     hostname: kafka
+#     restart: always
+#     ports:
+#       - "9092:9092"
+#       - "19092:19092"
+#     environment:
+#       KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+#       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+#       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+#       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#     # volumes:
+#     #   - ./_data/kafka/data:/var/lib/kafka/data
+#     depends_on:
+#       - zookeeper
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    network_mode: host
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
+    
