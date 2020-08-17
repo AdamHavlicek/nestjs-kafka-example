@@ -36,10 +36,12 @@ version: '3.7'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    network_mode: host
     environment:
       ZOOKEEPER_CLIENT_PORT: 32181
       ZOOKEEPER_TICK_TIME: 2000
+    ports: 
+      - "2181:2181"
+      - "9876:8080"
 
   kafka:
     image: confluentinc/cp-kafka:latest

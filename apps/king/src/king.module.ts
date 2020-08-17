@@ -12,12 +12,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices'
                     client: {
                         clientId: 'king',
                         brokers: ['localhost:29092'],
-
                     },
                     producer: {
                         allowAutoTopicCreation: true
                     },
-                    consumer: {groupId: 'producer'},
+                    consumer: {groupId: 'king'},
                     subscribe: {fromBeginning: true}
                 }
             }
